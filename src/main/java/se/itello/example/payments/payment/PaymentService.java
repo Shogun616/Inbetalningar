@@ -1,7 +1,9 @@
 package se.itello.example.payments.payment;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PaymentService{
@@ -10,7 +12,17 @@ public class PaymentService{
     public static boolean exist;
     static File file = new File("_betalningsservice.txt" + "_inbetalningstjänst.txt");
 
+    public static void buildPaymentBundle(String accountNumber, Date paymentDate, String currency){
 
+    }
+
+    public static void payment(BigDecimal amount, String reference){
+
+    }
+
+    public static void completePaymentBundle(){
+
+    }
 
     public static String fileSaving(List<Payment> payment){
 
