@@ -1,22 +1,23 @@
 package se.itello.example.payments.payment;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PaymentService{
 
+    private PaymentReceiver paymentReceiver;
+    public static boolean exist;
     static File file = new File("_betalningsservice.txt" + "_inbetalningstjänst.txt");
-    static boolean exist = file.exists();
 
-    public static String fileSaving(List<PaymentReceiver> payment){
 
-        List<PaymentReceiver> payments = new ArrayList<>();
+
+    public static String fileSaving(List<Payment> payment){
+
+        List<Payment> payments = new ArrayList<>();
         payments = payment;
         System.out.println("printing list");
-        for (PaymentReceiver pay : payments)
+        for (Payment pay : payments)
             System.out.println(pay);
 
         try {
@@ -31,7 +32,7 @@ public class PaymentService{
     }
 
 
-    public static void addPaymentToFile(List<PaymentReceiver> payment, File filename) throws IOException {
+    public static void addPaymentToFile(List<Payment> payment, File filename) throws IOException {
 
         FileOutputStream fileOutputStream = new FileOutputStream(filename);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);

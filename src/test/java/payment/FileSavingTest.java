@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import se.itello.example.payments.Main;
+import se.itello.example.payments.payment.Payment;
 import se.itello.example.payments.payment.PaymentService;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class FileSavingTest {
     @Test
     @DisplayName("test if file exist")
     public void testIfFileExist(){
-        assertTrue(PaymentService.fileSaving.exist);
+        assertTrue(PaymentService.exist);
     }
 
     @Test
