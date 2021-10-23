@@ -8,25 +8,25 @@ import java.util.List;
 
 public class PaymentService{
 
-    private PaymentReceiver paymentReceiver;
+    private static PaymentReceiver paymentReceiver;
     public static boolean exist;
     static File file = new File("_betalningsservice.txt" + "_inbetalningstjänst.txt");
 
     public static void buildPaymentBundle(String accountNumber, Date paymentDate, String currency){
-
+        paymentReceiver.startPaymentBundle(accountNumber, paymentDate, currency);
     }
 
     public static void payment(BigDecimal amount, String reference){
-
+        paymentReceiver.payment(amount, reference);
     }
 
     public static void completePaymentBundle(){
-
+        paymentReceiver.endPaymentBundle();
     }
 
     public static String fileSaving(List<Payment> payment){
 
-        List<Payment> payments = new ArrayList<>();
+        List<Payment> payments;
         payments = payment;
         System.out.println("printing list");
         for (Payment pay : payments)
@@ -40,9 +40,8 @@ public class PaymentService{
             e.printStackTrace();
         }
 
-        return null;
+        return payment.get(0).getAccountNumber();
     }
-
 
     public static void addPaymentToFile(List<Payment> payment, File filename) throws IOException {
 
