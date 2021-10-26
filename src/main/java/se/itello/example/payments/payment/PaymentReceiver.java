@@ -1,8 +1,11 @@
 package se.itello.example.payments.payment;
 
+import org.springframework.stereotype.Repository;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Repository
 public interface PaymentReceiver {
     /**
      * Called to mark the start of a new payment bundle.
