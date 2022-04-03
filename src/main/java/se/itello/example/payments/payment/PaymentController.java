@@ -1,9 +1,8 @@
 package se.itello.example.payments.payment;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 @RestController
 @RequestMapping("api/v1/")
@@ -15,15 +14,15 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-//    @PostMapping("/startPaymentBundle")
-//    public void startPaymentBundle(@RequestBody String accountNumber, Date paymentDate, String currency){
-//        paymentService.startPaymentBundle(accountNumber, paymentDate, currency);
-//        paymentService.endPaymentBundle();
-//    }
-//
-//    @PostMapping("/payment")
-//    public void payment(@RequestBody BigDecimal amount, String reference){
-//        paymentService.payment(amount, reference);
-//        paymentService.endPaymentBundle();
-//    }
+    @PostMapping("startPaymentBundle")
+    public ResponseEntity<PaymentBundle> startPaymentBundle(@RequestBody PaymentBundle paymentBundle){
+        PaymentBundle addPaymentBundle = paymentService.startPaymentBundle(paymentBundle);
+        return new ResponseEntity<>(addPaymentBundle, HttpStatus.CREATED);
+    }
+
+    @PostMapping("payment")
+    public ResponseEntity<Payment> startPaymentBundle(@RequestBody Payment payment){
+        Payment addPayment = paymentService.payment(payment);
+        return new ResponseEntity<>(addPayment, HttpStatus.CREATED);
+    }
 }
