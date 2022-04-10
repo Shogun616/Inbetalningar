@@ -1,9 +1,9 @@
 package se.itello.example.payments.payment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,6 +15,11 @@ public class Payment {
 
     private BigDecimal amount;
     private String reference;
+
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = PaymentBundle.class)
+    private PaymentBundle paymentBundles;
 
     public Payment(BigDecimal amount, String reference) {
         this.amount = amount;
@@ -46,5 +51,13 @@ public class Payment {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public PaymentBundle getPaymentBundles() {
+        return paymentBundles;
+    }
+
+    public void setPaymentBundles(PaymentBundle paymentBundles) {
+        this.paymentBundles = paymentBundles;
     }
 }

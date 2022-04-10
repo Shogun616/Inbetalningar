@@ -1,0 +1,35 @@
+version: "3.1"
+services:
+  database:
+    image: mysql
+    container_name: docker-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: inbetalningar
+    ports:
+      - "3307:3306"
+
+  inbetalningar:
+    image: inbetalningar
+    container_name: inbetalning-app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql:3306/inbetalningar?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL5Dialect
+
+  rabbitmq_manager:
+    container_name: RabbitMqManager
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"

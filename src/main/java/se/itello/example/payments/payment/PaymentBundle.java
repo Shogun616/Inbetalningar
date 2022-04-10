@@ -1,9 +1,8 @@
 package se.itello.example.payments.payment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -17,6 +16,10 @@ public class PaymentBundle {
     private Date paymentDate;
     private String currency;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Payment payments;
+
     public PaymentBundle(String accountNumber, Date paymentDate, String currency) {
         this.accountNumber = accountNumber;
         this.paymentDate = paymentDate;
@@ -24,6 +27,11 @@ public class PaymentBundle {
     }
 
     public PaymentBundle() {
+    }
+
+    public void addPayment(Payment payment){
+        setPayments(payment);
+        payment.setPaymentBundles(this);
     }
 
     public Long getId() {
@@ -56,5 +64,13 @@ public class PaymentBundle {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Payment getPayments() {
+        return payments;
+    }
+
+    public void setPayments(Payment payments) {
+        this.payments = payments;
     }
 }
